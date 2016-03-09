@@ -1,16 +1,22 @@
 ### Summary of folder
 This folder contains the following for week4 project sumbission to 
 Coursera course Getting and Cleaning Data:
-* a tidy data set (AveActivityMeas.csv) with the average of each variable for each activity and each subject.
+* a tidy data set (AveActivityMeas.txt) with the average of each variable for each activity and each subject.
 * a script (run_analysis.R) for performing the analysis including downloading, transforming and creating the tidy dataset.
 * A code book (CodeBook.md) that describes the variables, the data and any transformations or work that was performed to clean up the data.
 
 
-### Script details
-Furthed details about how all of the scripts work can be found below:
+### Script summary
+Only one script is used for this analysis.
 
-Only one script used for this analysis, by sourcing the script (run_analysis.R) in R, 
-it will download the raw data, perform the detailed transformations defined in the CodeBook and output a tidy dataset file (AveActivityMeas.csv) in the working directory.
+The script requires the R package "dplyr".
+
+The raw data must already be downloaded and unzipped into the "UCI HAR Dataset" subfolder in the working directory.
+
+Sourcing the script (run_analysis.R) in R, will
+* check that the raw data is in the folder "UCI HAR Dataset", 
+* perform the detailed transformations defined in the CodeBook and 
+* output a tidy dataset file (AveActivityMeasOutput.txt) in the working directory. This will have the same data as can be found in the provided text file for comparison (AveActivityMeas.txt).
 
 
 ### Notes:

@@ -9,8 +9,8 @@ There were two types of measurements: linear acceleration from the accelerometer
 The accelerometer measured signals were provided in two components: a Gravity component and a Body component.
 The mean and standard deviation of these measurements are the values that were extracted and summarised for analysis using the provided script (run_analysis.R). 
 
-The objective of this script is to take the raw data from the network location (a zipped file containing a combination of text files) 
-and combine the data into a useful tidy dataset in one comma-separated file (AveActivityMeas.csv).
+The objective of this script is to take the raw data from the local subfolder called "UCI HAR Dataset"  containing a combination of text files
+and combine the data into a useful tidy dataset in one space seperated text file (AveActivityMeasOutput.txt).
 
 
 ## Code Book
@@ -41,12 +41,12 @@ The following columns are included in the output data set:
 ## Process
 
 The following transformations were performed to obtain the output dataset:
-* download and extract the raw data from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+* check that the data is in the working directory.
 * load the individual data files into memory
 * merge all the data sets (Train and Test sets) into one data frame
 * subset out only the mean and standard deviation of the measurement data (from the Accelerometer and Gyro signals) excluding all of the derived data sets.
 * replace the activity id numbers with the appropriate text based on the activity labels provided.
 * rename the measurement variable names with descriptive and clean names
 * summarise the data by taking the mean of each measurement based on subject and activity to obtain a tidy dataset with the average of each variable for each activity and each subject.
-* output this tidy data set to a comma-separated (*.csv) file.
+* output this tidy data set to a text (*.txt) file.
 * clean up the workspace to remove all but the combined raw data and the tidy datasets.

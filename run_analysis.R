@@ -1,5 +1,5 @@
 ## The run_analysis.R script will do the following:
-## 0. Download and extract the files locally.
+## 0. Check that the files are available locally in the folder "UCI HAR Dataset".
 ## 1. Merge the training and the test sets to create one measurement data set.
 ## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 ## 3. Uses descriptive activity names to name the activities in the data set
@@ -9,35 +9,30 @@
 require(dplyr)
 
 
-## download and extract data
+## Check that the files are available locally (only check that the folder exists and assumes all the other files are available)
 
-if(!file.exists("./data")){dir.create("./data")}
-fileUrl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(fileUrl,destfile = "./data/temp.zip")
-unzip("./data/temp.zip",exdir="./data")
-unlink("./data/temp.zip")
+if(!file.exists("./UCI HAR DATASET")){stop("Folder with raw data doesn't exits: UCI HAR Dataset")}
 
 ## load and merge the datasets
-basepath<-file.path(".","data","UCI HAR DATASET")
 
-activity_labels<-read.table(file.path(basepath,"activity_labels.txt"),header = FALSE)
+activity_labels<-read.table(file.path(".","UCI HAR DATASET","activity_labels.txt"),header = FALSE)
 names(activity_labels)<-c("id","activity")
 
-features<-read.table(file.path(basepath,"features.txt"),header = FALSE)
+features<-read.table(file.path(".","UCI HAR DATASET","features.txt"),header = FALSE)
 
-subject_train<-read.table(file.path(basepath,"train","subject_train.txt"),header = FALSE)
-subject_test<-read.table(file.path(basepath,"test","subject_test.txt"),header = FALSE)
+subject_train<-read.table(file.path(".","UCI HAR DATASET","train","subject_train.txt"),header = FALSE)
+subject_test<-read.table(file.path(".","UCI HAR DATASET","test","subject_test.txt"),header = FALSE)
 subjects<-rbind(subject_train,subject_test)
 names(subjects)<-c("subject")
 subjects$subject<-as.factor(subjects$subject)
 
-X_train<-read.table(file.path(basepath,"train","X_train.txt"),header = FALSE)
-X_test<-read.table(file.path(basepath,"test","X_test.txt"),header = FALSE)
+X_train<-read.table(file.path(".","UCI HAR DATASET","train","X_train.txt"),header = FALSE)
+X_test<-read.table(file.path(".","UCI HAR DATASET","test","X_test.txt"),header = FALSE)
 data_tbl<-rbind(X_train,X_test)
 names(data_tbl)<-features$V2
 
-y_train<-read.table(file.path(basepath,"train","y_train.txt"),header = FALSE)
-y_test<-read.table(file.path(basepath,"test","y_test.txt"),header = FALSE)
+y_train<-read.table(file.path(".","UCI HAR DATASET","train","y_train.txt"),header = FALSE)
+y_test<-read.table(file.path(".","UCI HAR DATASET","test","y_test.txt"),header = FALSE)
 labels_tbl<-rbind(y_train,y_test)
 names(labels_tbl)<-c("activity")
 
@@ -64,8 +59,8 @@ data_tidy<-bind_cols(subjects,labels_tbl,data_tbl) %>%
      summarise_each(funs(mean))
 
 
-## write to a csv file
-write.csv(data_tidy,file="./AveActivityMeas.csv",quote=FALSE,row.names=FALSE)
+## write to a txt file
+write.table(data_tidy,file="./AveActivityMeasOutput.txt",quote=FALSE,row.names=FALSE)
 
 ## Tidy up remaining datasets:
 rm(list=c("activity_labels","features","labels_tbl","subjects"))
