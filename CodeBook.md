@@ -6,8 +6,8 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 
 The data collected and provided from the study consisted of measured signals and derived signals.  
 There were two types of measurements: linear acceleration from the accelerometer (Acc) and angular velocity from the gyroscope (Gyro) of which each had three directional components (X, Y, Z). 
-The measured signals were provided in two components: Gravity component and a Body component.  
-These were the measurements that were extracted and summarised for analysis using the provided script (run_analysis.R). 
+The accelerometer measured signals were provided in two components: a Gravity component and a Body component.
+The mean and standard deviation of these measurements are the values that were extracted and summarised for analysis using the provided script (run_analysis.R). 
 
 The objective of this script is to take the raw data from the network location (a zipped file containing a combination of text files) 
 and combine the data into a useful tidy dataset in one comma-separated file (AveActivityMeas.csv).
@@ -24,24 +24,18 @@ The following columns are included in the output data set:
 *bodyaccstdx: average Accelerometer standard deviation x value for the body component (units: standard gravity 'g')
 *bodyaccstdy: average Accelerometer standard deviation y value for the body component (units: standard gravity 'g')
 *bodyaccstdz: average Accelerometer standard deviation z value for the body component (units: standard gravity 'g')
-*bodygyromeanx: average Gyroscope mean x value for the body component (units: radians/second)
-*bodygyromeany: average Gyroscope mean y value for the body component (units: radians/second)
-*bodygyromeanz: average Gyroscope mean z value for the body component (units: radians/second)
-*bodygyrostdx: average Gyroscope standard deviation x value for the body component (units: radians/second)
-*bodygyrostdy: average Gyroscope standard deviation y value for the body component (units: radians/second)
-*bodygyrostdz: average Gyroscope standard deviation z value for the body component (units: radians/second)
 *gravityaccmeanx: average Accelerometer mean x value for the gravity component (units: standard gravity 'g')
 *gravityaccmeany: average Accelerometer mean y value for the gravity component (units: standard gravity 'g')
 *gravityaccmeanz: average Accelerometer mean z value for the gravity component (units: standard gravity 'g')
 *gravityaccstdx: average Accelerometer standard deviation x value for the gravity component (units: standard gravity 'g')
 *gravityaccstdy: average Accelerometer standard deviation y value for the gravity component (units: standard gravity 'g')
 *gravityaccstdz: average Accelerometer standard deviation z value for the gravity component (units: standard gravity 'g')
-*gravitygyromeanx: average Gyroscope mean x value for the gravity component (units: radians/second)
-*gravitygyromeany: average Gyroscope mean y value for the gravity component (units: radians/second)
-*gravitygyromeanz: average Gyroscope mean z value for the gravity component (units: radians/second)
-*gravitygyrostdx: average Gyroscope standard deviation x value for the gravity component (units: radians/second)
-*gravitygyrostdy: average Gyroscope standard deviation y value for the gravity component (units: radians/second)
-*gravitygyrostdz: average Gyroscope standard deviation z value for the gravity component (units: radians/second)
+*bodygyromeanx: average Gyroscope mean x value for the body component (units: radians/second)
+*bodygyromeany: average Gyroscope mean y value for the body component (units: radians/second)
+*bodygyromeanz: average Gyroscope mean z value for the body component (units: radians/second)
+*bodygyrostdx: average Gyroscope standard deviation x value for the body component (units: radians/second)
+*bodygyrostdy: average Gyroscope standard deviation y value for the body component (units: radians/second)
+*bodygyrostdz: average Gyroscope standard deviation z value for the body component (units: radians/second)
 
 
 ## Process
