@@ -9,7 +9,7 @@ There were two types of measurements: linear acceleration from the accelerometer
 The accelerometer measured signals were provided in two components: a Gravity component and a Body component.
 The mean and standard deviation of these measurements are the values that were extracted and summarised for analysis using the provided script (run_analysis.R). 
 
-The objective of this script is to take the raw data from the local subfolder called "UCI HAR Dataset"  containing a combination of text files
+The objective of this script is to take the raw data from the working directory or subfolders containing a combination of text files 
 and combine the data into a useful tidy dataset in one space seperated text file (AveActivityMeasOutput.txt).
 
 

@@ -11,10 +11,10 @@ Only one script is used for this analysis.
 
 The script requires the R package "dplyr".
 
-The raw data must already be downloaded and unzipped into the "UCI HAR Dataset" subfolder in the working directory.
+The raw data must already be downloaded and unzipped with the files in the working directory or any of its subfolders (the script will search to find the correct full path).
 
 Sourcing the script (run_analysis.R) in R, will
-* check that the raw data is in the folder "UCI HAR Dataset", 
+* check that the raw data is available (by file name only).
 * perform the detailed transformations defined in the CodeBook and 
 * output a tidy dataset file (AveActivityMeasOutput.txt) in the working directory. This will have the same data as can be found in the provided text file for comparison (AveActivityMeas.txt).
 

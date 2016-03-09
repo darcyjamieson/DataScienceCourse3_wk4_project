@@ -1,5 +1,5 @@
 ## The run_analysis.R script will do the following:
-## 0. Check that the files are available locally in the folder "UCI HAR Dataset".
+## 0. Check that the files are available locally in the current working directory or any subfolders.
 ## 1. Merge the training and the test sets to create one measurement data set.
 ## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 ## 3. Uses descriptive activity names to name the activities in the data set
@@ -9,33 +9,53 @@
 require(dplyr)
 
 
-## Check that the files are available locally (only check that the folder exists and assumes all the other files are available)
+## Check and get the location for each required file.
 
-if(!file.exists("./UCI HAR DATASET")){stop("Folder with raw data doesn't exits: UCI HAR Dataset")}
+filenames<-data.frame(names=c("activity_labels.txt",
+	"features.txt",
+	"subject_train.txt",
+	"subject_test.txt",
+	"X_train.txt",
+	"X_test.txt",
+	"y_train.txt",
+	"y_test.txt"
+	))
+
+chkfullpath<-function(file){
+     fullname<-list.files(pattern=as.character(paste0("^",file)),full.names=TRUE,recursive=TRUE,ignore.case=TRUE)
+     if(length(fullname)==0){
+          stop("Required raw data file missing: ",file)
+     } else {
+          fullname[[1]]
+     }
+}
+
+filenames$fullname<-lapply(filenames$names,chkfullpath)
+
 
 ## load and merge the datasets
 
-activity_labels<-read.table(file.path(".","UCI HAR DATASET","activity_labels.txt"),header = FALSE)
+
+activity_labels<-read.table(filenames$fullname[[1]],header = FALSE)
 names(activity_labels)<-c("id","activity")
 
-features<-read.table(file.path(".","UCI HAR DATASET","features.txt"),header = FALSE)
+features<-read.table(filenames$fullname[[2]],header = FALSE)
 
-subject_train<-read.table(file.path(".","UCI HAR DATASET","train","subject_train.txt"),header = FALSE)
-subject_test<-read.table(file.path(".","UCI HAR DATASET","test","subject_test.txt"),header = FALSE)
+subject_train<-read.table(filenames$fullname[[3]],header = FALSE)
+subject_test<-read.table(filenames$fullname[[4]],header = FALSE)
 subjects<-rbind(subject_train,subject_test)
 names(subjects)<-c("subject")
 subjects$subject<-as.factor(subjects$subject)
 
-X_train<-read.table(file.path(".","UCI HAR DATASET","train","X_train.txt"),header = FALSE)
-X_test<-read.table(file.path(".","UCI HAR DATASET","test","X_test.txt"),header = FALSE)
+X_train<-read.table(filenames$fullname[[5]],header = FALSE)
+X_test<-read.table(filenames$fullname[[6]],header = FALSE)
 data_tbl<-rbind(X_train,X_test)
 names(data_tbl)<-features$V2
 
-y_train<-read.table(file.path(".","UCI HAR DATASET","train","y_train.txt"),header = FALSE)
-y_test<-read.table(file.path(".","UCI HAR DATASET","test","y_test.txt"),header = FALSE)
+y_train<-read.table(filenames$fullname[[7]],header = FALSE)
+y_test<-read.table(filenames$fullname[[8]],header = FALSE)
 labels_tbl<-rbind(y_train,y_test)
 names(labels_tbl)<-c("activity")
-
 
 ## clean up workspace by removing the large intermediate datasets:
 rm(list=c("subject_train","subject_test","X_train","X_test","y_train","y_test"))
@@ -63,4 +83,4 @@ data_tidy<-bind_cols(subjects,labels_tbl,data_tbl) %>%
 write.table(data_tidy,file="./AveActivityMeasOutput.txt",quote=FALSE,row.names=FALSE)
 
 ## Tidy up remaining datasets:
-rm(list=c("activity_labels","features","labels_tbl","subjects"))
+rm(list=c("filenames","activity_labels","features","labels_tbl","subjects"))
